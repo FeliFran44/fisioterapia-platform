@@ -26,53 +26,53 @@ export default function NuevoPacientePage() {
     gender: "",
     notes: "",
   })
+
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const { toast } = useToast()
 
   const handleInputChange = (field: string, value: string) => {
-  setFormData((prev) => ({
-    ...prev,
-    [field]: value,
-  }));
-};
-
-  cconst handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setIsLoading(true);
-
-  try {
-    const res = await fetch("/api/pacientes", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        nombre: formData.name,
-        cedula: formData.cedula,
-        telefono: formData.phone,
-        correo: formData.email,
-      }),
-    });
-
-    if (!res.ok) throw new Error("No se pudo guardar");
-
-    toast({
-      title: "¡Paciente creado exitosamente! 🎉",
-      description: `${formData.name} ha sido registrado correctamente en el sistema`,
-    });
-
-    router.push("/dashboard/pacientes");
-  } catch (error) {
-    console.error(error);
-    toast({
-      title: "Error",
-      description: "No se pudo crear el paciente. Inténtalo de nuevo.",
-      variant: "destructive",
-    });
-  } finally {
-    setIsLoading(false);
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }))
   }
-};
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+
+    try {
+      const res = await fetch("/api/pacientes", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: formData.name,
+          cedula: formData.cedula,
+          telefono: formData.phone,
+          correo: formData.email,
+        }),
+      })
+
+      if (!res.ok) throw new Error("No se pudo guardar")
+
+      toast({
+        title: "¡Paciente creado exitosamente! 🎉",
+        description: `${formData.name} ha sido registrado correctamente en el sistema`,
+      })
+
+      router.push("/dashboard/pacientes")
+    } catch (error) {
+      console.error(error)
+      toast({
+        title: "Error",
+        description: "No se pudo crear el paciente. Inténtalo de nuevo.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -103,7 +103,6 @@ export default function NuevoPacientePage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Personal Information */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="name">Nombre Completo *</Label>
@@ -197,7 +196,6 @@ export default function NuevoPacientePage() {
               />
             </div>
 
-            {/* Submit Button */}
             <div className="flex justify-end space-x-4">
               <Link href="/dashboard/pacientes">
                 <Button variant="outline" type="button">
@@ -219,7 +217,6 @@ export default function NuevoPacientePage() {
         </CardContent>
       </Card>
 
-      {/* Help Section */}
       <Card className="mt-6">
         <CardHeader>
           <CardTitle className="text-lg">💡 Consejos</CardTitle>
