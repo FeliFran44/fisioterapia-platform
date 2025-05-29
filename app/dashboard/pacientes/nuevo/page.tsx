@@ -31,11 +31,11 @@ export default function NuevoPacientePage() {
   const { toast } = useToast()
 
   const handleInputChange = (field: string, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }))
-  }
+  setFormData((prev) => ({
+    ...prev,
+    [field]: value,
+  }));
+};
 
   cconst handleSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
